@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_create"
+        android:icon="@android:drawable/ic_menu_add"
+        android:title="@string/title_create" />
+
+    <item
+        android:id="@+id/navigation_read"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="@string/title_read" />
+
+    <item
+        android:id="@+id/navigation_actualizar"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="@string/title_actualizar" />
+    <item
+        android:id="@+id/deleteFragment"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="@string/title_delete"/>
+    <item
+        android:id="@+id/fragmentList"
+        android:icon="@drawable/abc_vector_test"
+        android:title="@string/Lista_de_deudores"/>
+
+" />
+
+</menu>

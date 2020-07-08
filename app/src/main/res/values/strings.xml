@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">BaseDeDatos</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_create">Create</string>
+    <string name="nombre">Digite nombre</string>
+    <string name="telefono">Télefono</string>
+    <string name="cantidad">Cantidad que debe</string>
+    <string name="btGuardar" />
+    <string name="guardar">Guardar</string>
+    <string name="title_read">read</string>
+    <string name="buscar_nombre">Digite nombre</string>
+    <string name="buscar">Buscar</string>
+
+    <string name="actualizar">Actualizar</string>
+    <string name="title_actualizar">Actualizar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="borrar">Borrar</string>
+    <string name="title_delete">Borrar</string>
+    <string name="Lista_de_deudores">Lista de deudores</string>
+</resources>
