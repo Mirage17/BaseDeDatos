@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.davidgrajales.basededatos.R
 import com.davidgrajales.basededatos.SesionRoom
 import com.davidgrajales.basededatos.model.local.DeudorDAO
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_read.*
 
 class ReadFragment : Fragment() {
@@ -43,5 +44,12 @@ class ReadFragment : Fragment() {
                 Toast.makeText(context,"Deudor no existe",Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun burcarEnFirebase(nombre:String){
+        val database =FirebaseDatabase.getInstance()
+        val myref=database.getReference("deudores")
+
+
     }
 }
