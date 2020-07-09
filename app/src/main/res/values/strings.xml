@@ -21,4 +21,9 @@
     <string name="borrar">Borrar</string>
     <string name="title_delete">Borrar</string>
     <string name="Lista_de_deudores">Lista de deudores</string>
+    <string name="logging">Loggin</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="hitEmail">Introduzca su email</string>
+    <string name="contraseña">Introduzca su contraseña</string>
+    <string name="repeatcontraseña">Repita su contraseña</string>
 </resources>

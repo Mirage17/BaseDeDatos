@@ -1,7 +1,6 @@
 package com.davidgrajales.basededatos
 
 import android.app.Application
-import android.net.wifi.rtt.CivicLocationKeys.ROOM
 import androidx.room.Room
 import com.davidgrajales.basededatos.model.DeudorDataBase
 
@@ -15,8 +14,8 @@ class BaseDeDatos: Application() {
         super.onCreate()
 
         database=Room.databaseBuilder(
-            this,DeudorDataBase::class.java,
+            this, DeudorDataBase::class.java,
             "mis deudores_db"
-        ).build()
+        ).allowMainThreadQueries().build()
     }
 }
