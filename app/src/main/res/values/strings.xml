@@ -26,4 +26,5 @@
     <string name="hitEmail">Introduzca su email</string>
     <string name="contraseña">Introduzca su contraseña</string>
     <string name="repeatcontraseña">Repita su contraseña</string>
+    <string name="title_lista">Lista</string>
 </resources>

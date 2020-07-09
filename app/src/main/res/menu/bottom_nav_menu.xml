@@ -20,10 +20,9 @@
         android:icon="@android:drawable/ic_menu_delete"
         android:title="@string/title_delete"/>
     <item
-        android:id="@+id/fragmentList"
-        android:icon="@drawable/abc_vector_test"
-        android:title="@string/Lista_de_deudores"/>
+        android:id="@+id/listFragment"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="@string/title_lista" />
 
-" />
 
 </menu>

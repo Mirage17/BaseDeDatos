@@ -27,9 +27,11 @@
         android:name="com.davidgrajales.basededatos.ui.delete.DeleteFragment"
         android:label="fragment_delete"
         tools:layout="@layout/fragment_delete" />
+
     <fragment
-        android:id="@+id/fragmentList"
-        android:name="com.davidgrajales.basededatos.ui.list.FragmentList"
+        android:id="@+id/listFragment"
+        android:name="com.davidgrajales.basededatos.ui.list.ListFragment"
         android:label="fragment_list"
         tools:layout="@layout/fragment_list" />
+
 </navigation>
