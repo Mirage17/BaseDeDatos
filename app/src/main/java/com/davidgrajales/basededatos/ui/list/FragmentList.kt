@@ -1,17 +1,17 @@
 package com.davidgrajales.basededatos.ui.list
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.davidgrajales.basededatos.DeudoresRVAdapter
 import com.davidgrajales.basededatos.R
 import com.davidgrajales.basededatos.SesionRoom
-import com.davidgrajales.basededatos.model.Deudor
-import com.davidgrajales.basededatos.model.DeudorDAO
+import com.davidgrajales.basededatos.model.local.Deudor
+import com.davidgrajales.basededatos.model.local.DeudorDAO
 
 
 class FragmentList : Fragment() {
@@ -33,7 +33,7 @@ class FragmentList : Fragment() {
             false
         )
         rv_deudores.setHasFixedSize(true)
-        var deudorDAO:DeudorDAO=SesionRoom.database.DeudorDAO()
+        var deudorDAO: DeudorDAO = SesionRoom.database.DeudorDAO()
         allDeudores=deudorDAO.getDeudores()
 
         var deudoresRVAdapter=DeudoresRVAdapter(

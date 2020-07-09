@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.davidgrajales.basededatos.R
 import com.davidgrajales.basededatos.SesionRoom
-import com.davidgrajales.basededatos.model.Deudor
+import com.davidgrajales.basededatos.model.local.Deudor
 import kotlinx.android.synthetic.main.fragment_actualizar.*
-import kotlinx.android.synthetic.main.fragment_create.*
 import kotlinx.android.synthetic.main.fragment_create.et_telefono
 
 class FragmentActualizar : Fragment() {

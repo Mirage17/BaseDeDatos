@@ -2,7 +2,7 @@ package com.davidgrajales.basededatos
 
 import android.app.Application
 import androidx.room.Room
-import com.davidgrajales.basededatos.model.DeudorDataBase
+import com.davidgrajales.basededatos.model.local.DeudorDataBase
 
 class SesionRoom: Application() {
     companion object {

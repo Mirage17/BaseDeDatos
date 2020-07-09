@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.davidgrajales.basededatos.R
 import com.davidgrajales.basededatos.SesionRoom
-import com.davidgrajales.basededatos.model.DeudorDAO
+import com.davidgrajales.basededatos.model.local.DeudorDAO
 import kotlinx.android.synthetic.main.fragment_read.*
 
 class ReadFragment : Fragment() {
@@ -32,8 +32,8 @@ class ReadFragment : Fragment() {
         bt_search.setOnClickListener{
             val nombre=et_nombre1.text.toString()
 
-            val deudorDAO:DeudorDAO=SesionRoom.database.DeudorDAO()
-            val deudor=deudorDAO.buscarDeudor(nombre)
+            val deudorDAO: DeudorDAO = SesionRoom.database.DeudorDAO()
+            val deudor = deudorDAO.buscarDeudor(nombre)
 
             if (deudor!=null){
                 tv_result.text="Nombre: ${deudor.name}\n Telefono: ${deudor.phone}\n"+

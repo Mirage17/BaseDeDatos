@@ -1,4 +1,4 @@
-package com.davidgrajales.basededatos.model
+package com.davidgrajales.basededatos.model.local
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

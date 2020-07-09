@@ -2,11 +2,10 @@ package com.davidgrajales.basededatos
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.davidgrajales.basededatos.model.Deudor
+import com.davidgrajales.basededatos.model.local.Deudor
 import kotlinx.android.synthetic.main.item_deudor.view.*
 
 class DeudoresRVAdapter (
