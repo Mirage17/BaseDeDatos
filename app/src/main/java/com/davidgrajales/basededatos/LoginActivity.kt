@@ -21,14 +21,22 @@ class LoginActivity : AppCompatActivity() {
             val adminDAO: AdminDAO = SesionRoom.database1.AdminDAO()
             val admin = adminDAO.buscarAdmin(email)
 
-            if (password == admin.password) {
-                Toast.makeText(this, "Administrador reconocido", Toast.LENGTH_LONG).show()
+            if (email.isEmpty() || password.isEmpty()) {
+                showToast("Campos por llenar")
 
-                startActivity(Intent(this, MainActivity::class.java))
             } else {
-                Toast.makeText(this, "Autenticación fallida", Toast.LENGTH_LONG).show()
+                if (password == admin.password) {
+                    showToast("Administrador reconocido")
+
+                    startActivity(Intent(this, MainActivity::class.java))
+                } else {
+                    showToast("autenticación fallida")
+
+                }
 
             }
+
+
         }
 
         b_registrarse.setOnClickListener {
@@ -37,5 +45,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    private fun showToast(msg: String) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
     }
 }
