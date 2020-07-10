@@ -21,7 +21,8 @@
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hitEmail" />
+            android:hint="@string/hitEmail"
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -39,7 +40,8 @@
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/contraseña" />
+            android:hint="@string/contraseña"
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -57,7 +59,8 @@
             android:id="@+id/et_rpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/repeatcontraseña" />
+            android:hint="@string/repeatcontraseña"
+            android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
