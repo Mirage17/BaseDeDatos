@@ -16,7 +16,7 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         val user = mAuth.currentUser
         if (user != null) {
-            startActivity((Intent(this, MainActivity::class.java)))
+            go2MainActivity()
         }
 
     }
@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         b_2register.setOnClickListener {
-            startActivity(Intent(this, RegistroActivity::class.java))
+            go2RegistroActivity()
         }
 
         b_login.setOnClickListener {
@@ -37,33 +37,46 @@ class LoginActivity : AppCompatActivity() {
             val email = et_correo.text.toString()
             val password = et_contraseña.text.toString()
 
-            mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(
-                    this
-                ) { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
+            signInWithFirebase(email, password)
 
-                        val user = mAuth.currentUser
+            go2MainActivity()
+        }
 
-                    } else {
-                        // If sign in fails, display a message to the user.
+    }
+
+    private fun signInWithFirebase(email: String, password: String) {
+        mAuth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(
+                this
+            ) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+
+                    val user = mAuth.currentUser
+
+                } else {
 
 
-                        Toast.makeText(
-                            this, "Authentication failed.",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                    showMesagge("Autenticación fallida")
 
-                    }
-
-                    // ...
                 }
 
 
+            }
+    }
 
-            startActivity(Intent(this, MainActivity::class.java))
-        }
+    private fun showMesagge(mesage: String) {
+        Toast.makeText(
+            this, mesage,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
 
+    private fun go2RegistroActivity() {
+        startActivity(Intent(this, RegistroActivity::class.java))
+    }
+
+    private fun go2MainActivity() {
+        startActivity((Intent(this, MainActivity::class.java)))
     }
 }
