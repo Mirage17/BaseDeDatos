@@ -2,7 +2,6 @@ package com.davidgrajales.basededatos
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -34,11 +33,11 @@ class DeudoresRVAdapter (
 
     class DeudoresViewHolder(
         itemView: View,
-        context:Context
-):RecyclerView.ViewHolder(itemView) {
+        context: Context
+    ) : RecyclerView.ViewHolder(itemView) {
         fun binDeudor(deudor: Deudor) {
-            itemView.tv_nombredeudor.text = deudor.name
-            itemView.tv_monto_deuda.text = deudor.owe.toString()
+            itemView.tv_nombre.text = deudor.name
+            itemView.tv_deuda.text = deudor.owe.toString()
         }
     }
 }
