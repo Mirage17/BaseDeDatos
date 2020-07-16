@@ -9,42 +9,65 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.davidgrajales.basededatos.DeudoresRVAdapter
 import com.davidgrajales.basededatos.R
-import com.davidgrajales.basededatos.SesionRoom
-import com.davidgrajales.basededatos.model.local.Deudor
-import com.davidgrajales.basededatos.model.local.DeudorDAO
+import com.davidgrajales.basededatos.model.remote.DeudorRemote
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import kotlinx.android.synthetic.main.fragment_list.*
 
 
 class FragmentList : Fragment() {
 
-    var allDeudores:List<Deudor> = emptyList()
-
+    private val allDeudores: MutableList<DeudorRemote> = mutableListOf()
+    private lateinit var deudoresAdapter: DeudoresRVAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root= inflater.inflate(R.layout.fragment_list,container)
+        val root = inflater.inflate(R.layout.fragment_list, container)
+    }
 
-        val rv_deudores =root.findViewById<RecyclerView>(R.id.rv_deudores)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        rv_deudores.layoutManager=LinearLayoutManager(
-            requireActivity().applicationContext,
-            RecyclerView.VERTICAL,
+        cargarDeudores()
+        rv_deudores.layoutManager = LinearLayoutManager(
+            requireContext(), RecyclerView.VERTICAL,
             false
         )
+
         rv_deudores.setHasFixedSize(true)
-        var deudorDAO: DeudorDAO = SesionRoom.database.DeudorDAO()
-        allDeudores=deudorDAO.getDeudores()
+        rv_deudores.adapter = deudoresAdapter
 
-        var deudoresRVAdapter=DeudoresRVAdapter(
-            requireActivity().applicationContext,
-            allDeudores as ArrayList<Deudor>
-        )
-
-        rv_deudores.adapter=deudoresRVAdapter
-        deudoresRVAdapter.notifyDataSetChanged()
-        // Inflate the layout for this fragment
-        return root
     }
+
+    private fun cargarDeudores() {
+
+
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.getReference("deudores")
+
+        val postListener = object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                for (datasnapshot: DataSnapshot in snapshot.children) {
+                    val deudor = datasnapshot.getValue(DeudorRemote::class.java)
+                    allDeudores.add(deudor!!)
+                }
+                deudoresAdapter.notifyDataSetChanged()
+
+            }
+
+        }
+
+        myRef.addValueEventListener(postListener)
+    }
+
 
 }

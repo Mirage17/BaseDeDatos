@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_read"
-        android:name="com.davidgrajales.basededatos.ui.dashboard.ReadFragment"
+        android:name="com.davidgrajales.basededatos.ui.Buscar.ReadFragment"
         android:label="@string/title_read"
         tools:layout="@layout/fragment_read" />
 

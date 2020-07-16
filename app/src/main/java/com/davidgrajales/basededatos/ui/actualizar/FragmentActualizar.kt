@@ -4,16 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.davidgrajales.basededatos.R
 import com.davidgrajales.basededatos.SesionRoom
 import com.davidgrajales.basededatos.model.local.Deudor
+import com.davidgrajales.basededatos.model.local.DeudorDAO
+import com.davidgrajales.basededatos.model.remote.DeudorRemote
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_actualizar.*
 import kotlinx.android.synthetic.main.fragment_create.et_telefono
 
 class FragmentActualizar : Fragment() {
 
-
+    var idDudorFirebase: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,53 +25,138 @@ class FragmentActualizar : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_actualizar, container, false)
+        return inflater.inflate(R.layout.fragment_actualizar, container, false)
 
-        return root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        et_telefono.visibility=View.GONE
-        et_deuda.visibility=View.GONE
-        bt_actualizar.visibility=View.GONE
-        var idDeudor=0
-        val deudorDAO=SesionRoom.database.DeudorDAO()
+        hideDeudorDatos()
+        var idDeudor = 0
+
+        val deudorDAO = SesionRoom.database.DeudorDAO()
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.getReference("deudores")
         bt_buscar.setOnClickListener {
             val nombre = et_nombre.text.toString()
 
 
-            val deudor = deudorDAO.buscarDeudor(nombre)
+            //buscarEnRoom(deudorDAO, nombre, idDeudor)
 
-            if (deudor != null) {
-                idDeudor = deudor.id
-                et_telefono.visibility = View.VISIBLE
-                et_deuda.visibility = View.VISIBLE
-                bt_actualizar.visibility = View.VISIBLE
-                et_telefono.setText(deudor.phone.toString())
-                et_deuda.setText(deudor.owe.toString())
-                bt_buscar.visibility = View.GONE
+            buscarEnFirebase(nombre, myRef)
+            habilitarWidgetsBuscar()
 
+        }
+
+        bt_actualizar.setOnClickListener {
+            //actualizarEnRoom(idDeudor, deudorDAO)
+
+            actualizarEnFirebase(myRef)
+            habilitarWidgetsBuscar()
+
+        }
+
+    }
+
+    private fun actualizarEnFirebase(myRef: DatabaseReference) {
+
+
+        val childUpdate = HashMap<String, Any>()
+        childUpdate["nombre"] = et_nombre.text.toString()
+        childUpdate["telefono"] = et_telefono.text.toString()
+        childUpdate["cantidad"] = et_deuda.text.toString().toLong()
+
+        myRef.child(idDudorFirebase!!).updateChildren(childUpdate)
+
+    }
+
+    private fun actualizarEnRoom(
+        idDeudor: Int,
+        deudorDAO: DeudorDAO
+    ) {
+        val deudor = Deudor(
+            idDeudor,
+            et_nombre.text.toString(),
+            et_telefono.text.toString(),
+            et_deuda.text.toString().toLong()
+        )
+
+        deudorDAO.actualizarDeuda(deudor)
+    }
+
+    private fun habilitarWidgetsBuscar() {
+        et_telefono.visibility = View.GONE
+        et_deuda.visibility = View.GONE
+        bt_buscar.visibility = View.VISIBLE
+        bt_actualizar.visibility = View.GONE
+    }
+
+    private fun buscarEnFirebase(
+        nombre: String,
+        myRef: DatabaseReference
+    ) {
+
+        var deudorExiste = false
+        val postListener = object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
 
             }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                for (datasnapshot: DataSnapshot in snapshot.children) {
+                    val deudor = datasnapshot.getValue(DeudorRemote::class.java)
+                    if (deudor?.nombre == nombre) {
+                        deudorExiste = true
+                        et_telefono.setText(deudor.telefono)
+                        et_deuda.setText(deudor.cantidad.toString())
+                        idDudorFirebase = deudor.id
+
+                    }
+
+                }
+                if (!deudorExiste) {
+                    Toast.makeText(requireContext(), "Deudor no exte", Toast.LENGTH_LONG).show()
+                }
+
+            }
+
         }
 
-            bt_actualizar.setOnClickListener {
-                val deudor = Deudor(
-                    idDeudor,
-                    et_nombre.text.toString(),
-                    et_telefono.text.toString(),
-                    et_deuda.text.toString().toLong()
-                )
+        myRef.addListenerForSingleValueEvent(postListener)
 
-            deudorDAO.actualizarDeuda(deudor)
-            et_telefono.visibility=View.GONE
-            et_deuda.visibility=View.GONE
-            bt_buscar.visibility=View.VISIBLE
-            bt_actualizar.visibility=View.GONE
+    }
+
+    private fun buscarEnRoom(
+        deudorDAO: DeudorDAO,
+        nombre: String,
+        idDeudor: Int
+    ) {
+        var idDeudor1 = idDeudor
+        val deudor = deudorDAO.buscarDeudor(nombre)
+
+        if (deudor != null) {
+            idDeudor1 = deudor.id
+            hablitarWidgetsParaActuallizar()
+            et_telefono.setText(deudor.phone.toString())
+            et_deuda.setText(deudor.owe.toString())
+
 
         }
+    }
 
+    private fun hablitarWidgetsParaActuallizar() {
+        et_telefono.visibility = View.VISIBLE
+        et_deuda.visibility = View.VISIBLE
+        bt_actualizar.visibility = View.VISIBLE
+        bt_buscar.visibility = View.GONE
+    }
+
+    private fun hideDeudorDatos() {
+        et_telefono.visibility = View.GONE
+        et_deuda.visibility = View.GONE
+        bt_actualizar.visibility = View.GONE
     }
 }
